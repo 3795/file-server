@@ -6,4 +6,4 @@ swagger:
 
 image:
   save-path: E:\file-strorage\images # 图片的存储路径
-  view-path: http://127.0.0.1:9000/image  # 图片访问路径
+  view-path: http://127.0.0.1:9000/file-server/images  # 图片访问路径

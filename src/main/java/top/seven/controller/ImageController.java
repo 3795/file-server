@@ -18,23 +18,24 @@ import java.io.OutputStream;
 import java.net.URLDecoder;
 
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/images")
 @Api(tags = "查看图片")
 public class ImageController {
 
     @Value("${image.save-path}")
     private String imageSavePath;
 
-    @GetMapping("/{name:.+}")
+    @GetMapping("/{path}/{name:.+}")
     @ApiOperation("查看图片")
     @ApiImplicitParam(name = "name", value = "图片名称", required = true, paramType = "query")
-    public void view(@PathVariable String name,
+    public void view(@PathVariable("path") String path,
+                     @PathVariable("name") String name,
                      HttpServletResponse response) throws IOException {
         if (Strings.isBlank(name)) {
             return;
         }
         response.setContentType("image/jpeg");
-        String imgPath = URLDecoder.decode(imageSavePath + File.separator + name, "utf-8");
+        String imgPath = URLDecoder.decode(imageSavePath + File.separator + path + File.separator + name, "utf-8");
         File file = new File(imgPath);
         if (file.exists()) {
             FileInputStream in = new FileInputStream(file);
